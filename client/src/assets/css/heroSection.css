@@ -1,0 +1,53 @@
+.banner{
+    position: relative;
+    margin-bottom: 20px;
+    height: 85vh;
+    overflow: hidden;
+    /* border: 2px solid red; */
+}
+
+.banner img{
+    height: 85vh;
+    object-fit: cover;
+}
+
+.bannerChild {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 35%;
+    padding: 34px;
+    width: 100%;
+    color: white;
+    text-transform: uppercase;
+}
+
+.bannerChild h2 {
+    font-size: 2em;
+    text-align: center; 
+}
+
+@media (max-width:768px) {
+    /* .banner {
+        height: 70vh
+    }
+    .banner img{
+        height: 70vh;
+        object-fit: cover;
+    } */
+}
+
+@media (max-width:500px) {
+    .bannerChild {
+        top: 40%;
+    }
+    .banner {
+        height: 70vh
+    }
+    .banner img{
+        height: 70vh;
+        object-fit: cover;
+    }
+}

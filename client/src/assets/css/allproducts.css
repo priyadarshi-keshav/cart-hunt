@@ -1,0 +1,41 @@
+.allproductsbanner{
+    position: relative;
+    margin-bottom: 20px;
+    height: 85vh;
+    overflow: hidden;
+}
+
+.allproductsbanner img{
+    height: 85vh;
+    /* width: 100%; */
+    /* object-fit: cover; */
+}
+
+.allproductsbannerChild {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 40%;
+    padding: 34px;
+    width: 100%;
+    color: white;
+    text-transform: uppercase;
+}
+
+
+@media (max-width:768px) {
+    .allproductsbanner {
+        height: 70vh;
+    }
+
+    .allproductsbanner img{
+        height: 70vh;
+        object-fit: cover;
+    }
+}
+
+/* @media (max-width:500px) {
+    
+} */
