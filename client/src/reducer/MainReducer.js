@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
 
 import { AddCategoryReducer, CategoryDetailsReducer, CategoryReducer, CategoryUpdateReducer } from './CategoryReducer'
-import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userListReducer } from './userReducer'
+import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userListReducer, userForgotPasswordReducer, userResetPasswordReducer } from './userReducer'
 import { AddProductReducer, DeleteProductReducer, MostViewedProductReducer, NewArrivalProductReducer, ProductAccorToCatReducer, ProductCreateReviewReducer, ProductDetailsReducer, ProductReducer, UpdateProductReducer } from './ProductReducer'
 import { CartReducer } from './CartReducer'
 import { activeOrdersReducer, completedOrdersReducer, myOrdersReducer, orderDetailsReducer, placeOrderReducer, updateDeliveryStatusReducer } from './OrderReducer'
@@ -34,6 +34,8 @@ const MainReducer = combineReducers({
     UserDetails : userDetailsReducer,
     UserUpdateProfile: userUpdateProfileReducer,
     UserList: userListReducer,
+    UserForgotPassword: userForgotPasswordReducer,
+    UserResetPassword: userResetPasswordReducer,
     
     PlaceOrder : placeOrderReducer,
     OrderDetails : orderDetailsReducer,

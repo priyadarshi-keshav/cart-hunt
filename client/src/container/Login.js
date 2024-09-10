@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { login } from '../action/userAction';
+import { login, forgotPassword } from '../action/userAction';
 import SubHeader from "./SubHeader"
 import Message from '../Extras/Message'
 import Loader from '../Extras/Loader'
@@ -43,18 +43,20 @@ const Login = (props) => {
   const dispatch = useDispatch()
 
   const { loading, profile, error } = useSelector(state => state.UserLogin)
+  const { loading: fp_loading, message, reset_url, error: fp_error } = useSelector(state => state.UserForgotPassword)
   const { cartItems } = useSelector(state => state.Cart)
   const redirect = props.location.search ? props.location.search.split('=')[1] : '/'
 
-
-  useEffect(async () => {
+  useEffect(() => {
     if (profile) {
       if (cartItems.length !== 0) {
-        await dispatch(addToCartLogin())
-        await dispatch(emptyCart())
+        dispatch(addToCartLogin())
+        dispatch(emptyCart())
       }
-      await dispatch(getCartProducts())
-      props.history.push(redirect)
+      dispatch(getCartProducts())
+      if (redirect != "reset_password_success") {
+        props.history.push(redirect)
+      }
     }
   }, [props.history, profile, redirect])
 
@@ -74,7 +76,7 @@ const Login = (props) => {
 
   const handleSubmitRecoverPassword = (e) => {
     e.preventDefault()
-    console.log(recoverEmail)
+    dispatch(forgotPassword(recoverEmail))
   }
 
   return (
@@ -92,6 +94,7 @@ const Login = (props) => {
 
               {loading && <Loader />}
               {error && <Message variant='danger'>{error}</Message>}
+              {redirect === "reset_password_success" && <Message variant='success'>Password Reset Completed Successfully</Message>}
 
 
               <Form onSubmit={handleSubmit} style={{ marginTop: '25%' }}>
@@ -103,11 +106,11 @@ const Login = (props) => {
 
                 <Form.Group style={form_item}>Password*
                   <TextField className="form-control" type="password" name="password" onChange={handleChange} required /><br />
-                  {/* <p onClick={()=>{setDisplay(!true)}} style={form_btn}>forgot password?</p> */}
+                  <p onClick={() => { setDisplay(!true) }} style={form_btn}>forgot password?</p>
                 </Form.Group>
 
                 <button className="page_btn" type="submit">Sign In</button>
-                <Link style={{color:'black'}} to={redirect === 'checkout_address' ? '/signup?redirect=checkout_address' : `/signup`}>
+                <Link style={{ color: 'black' }} to={redirect === 'checkout_address' ? '/signup?redirect=checkout_address' : `/signup`}>
                   <Form.Group>Create account</Form.Group>
                 </Link>
               </Form>
@@ -128,7 +131,13 @@ const Login = (props) => {
           <Row className="justify-content-md-center" style={styleRecover}>
             <Col sm={12} md={8} lg={6}>
               <center><p className='heading'>Recover Password</p></center>
-
+              {fp_loading && <Loader />}
+              {fp_error && <Message variant='danger'>{fp_error}</Message>}
+              {reset_url &&
+                <Message variant='success'>
+                  {message}: <a href={reset_url} target='_blank'>Click to reset</a>
+                </Message>
+              }
               <Form onSubmit={handleSubmitRecoverPassword} style={{ marginTop: '25%' }}>
 
                 <Form.Group>Please enter your email
@@ -136,7 +145,7 @@ const Login = (props) => {
                 </Form.Group>
 
                 <button className="page_btn" type="submit">Recover</button>
-                <Form.Group>Remember your password? <span style={{cursor:'pointer'}} onClick={()=>{setDisplay(true)}}>login</span></Form.Group>
+                <Form.Group>Remember your password? <span style={{ cursor: 'pointer' }} onClick={() => { setDisplay(true) }}>login</span></Form.Group>
               </Form>
 
             </Col>

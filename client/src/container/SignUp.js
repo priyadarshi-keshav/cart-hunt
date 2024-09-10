@@ -25,13 +25,13 @@ const SignUp = (props) => {
   
   const redirect = props.location.search ? props.location.search.split('=')[1] : '/'
   
-  useEffect(async () => {
+  useEffect(() => {
     if (profile) {
       if (cartItems.length !== 0) {
-        await dispatch(addToCartLogin())
-        await dispatch(emptyCart())
+        dispatch(addToCartLogin())
+        dispatch(emptyCart())
       }
-      await dispatch(getCartProducts())
+      dispatch(getCartProducts())
       props.history.push(redirect)
     }
   }, [props.history, profile, redirect])

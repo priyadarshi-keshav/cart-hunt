@@ -1,4 +1,4 @@
-import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_RESET, USER_DETAILS_SUCCESS, USER_LIST_FAIL, USER_LIST_REQUEST, USER_LIST_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_LOGOUT_FAIL, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_UPDATE_PROFILE_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_RESET, USER_UPDATE_PROFILE_SUCCESS } from "../constants/userConstant"
+import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_RESET, USER_DETAILS_SUCCESS, USER_FORGOT_PASSWORD_FAIL, USER_FORGOT_PASSWORD_REQUEST, USER_FORGOT_PASSWORD_SUCCESS, USER_LIST_FAIL, USER_LIST_REQUEST, USER_LIST_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_LOGOUT_FAIL, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_RESET_PASSWORD_FAIL, USER_RESET_PASSWORD_REQUEST, USER_RESET_PASSWORD_SUCCESS, USER_UPDATE_PROFILE_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_RESET, USER_UPDATE_PROFILE_SUCCESS } from "../constants/userConstant"
 import axios from 'axios'
 import { EMPTY_AUTH_CART } from "../constants/CartConstant"
 import { MY_ORDER_RESET, ORDER_DETAILS_RESET } from "../constants/orderConstant"
@@ -49,15 +49,15 @@ export const logout = () => async (dispatch, getState) => {
         if (data) {
             dispatch({
                 type: USER_LOGOUT,
-                payload:data
+                payload: data
             })
-            dispatch({type: EMPTY_AUTH_CART})
-            dispatch({type: USER_DETAILS_RESET})
-            dispatch({type: MY_ORDER_RESET})
-            dispatch({type: ORDER_DETAILS_RESET})
-            dispatch({type: USER_UPDATE_PROFILE_RESET})
-            dispatch({type: REVIEW_PRODUCT_RESET})
-            
+            dispatch({ type: EMPTY_AUTH_CART })
+            dispatch({ type: USER_DETAILS_RESET })
+            dispatch({ type: MY_ORDER_RESET })
+            dispatch({ type: ORDER_DETAILS_RESET })
+            dispatch({ type: USER_UPDATE_PROFILE_RESET })
+            dispatch({ type: REVIEW_PRODUCT_RESET })
+
             localStorage.removeItem('payment')
             localStorage.removeItem('profile')
             localStorage.removeItem('address')
@@ -104,6 +104,59 @@ export const register = (newUser) => async (dispatch) => {
         dispatch({
             type: USER_REGISTER_FAIL,
             payload: error.response && error.response.data ? error.response.data.message : error.message
+        })
+    }
+}
+
+export const forgotPassword = (email) => async (dispatch) => {
+    try {
+        dispatch({
+            type: USER_FORGOT_PASSWORD_REQUEST
+        })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.post(`${process.env.REACT_APP_HOST_URL}/user/generate_emailtoken`, { email }, config)
+
+        dispatch({
+            type: USER_FORGOT_PASSWORD_SUCCESS,
+            payload: data
+        })
+        console.log({ reset_link: data })
+    } catch (error) {
+        console.log({error})
+        dispatch({
+            type: USER_FORGOT_PASSWORD_FAIL,
+            payload: error.response && error.response.data ? error.response.data.message : error.message
+        })
+    }
+}
+
+export const resetPassword = ({ password, confirmPassword, resetToken }) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_RESET_PASSWORD_REQUEST
+        })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': resetToken
+            }
+        }
+
+        const { data } = await axios.put(`${process.env.REACT_APP_HOST_URL}/user/reset_password`, { password, confirmPassword }, config)
+        dispatch({
+            type: USER_RESET_PASSWORD_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        console.log({error});
+        dispatch({
+            type: USER_RESET_PASSWORD_FAIL,
+            payload: "The password reset link you used is either expired or invalid."
         })
     }
 }
@@ -210,6 +263,6 @@ export const getUserList = () => async (dispatch, getState) => {
 
 export const resetUpdateUserMessage = () => (dispatch) => {
     dispatch({
-        type:USER_UPDATE_PROFILE_RESET
+        type: USER_UPDATE_PROFILE_RESET
     })
 }

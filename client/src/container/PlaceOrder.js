@@ -26,7 +26,7 @@ const PlaceOrder = ({ history }) => {
     const { loading, order, success, error } = useSelector(state => state.PlaceOrder)
     const [ordernote, setOrdernote] = useState('')
 
-    useEffect(async () => {
+    useEffect(() => {
         if (!profile) {
             history.push('/login')
         }
@@ -34,9 +34,9 @@ const PlaceOrder = ({ history }) => {
             history.push('/cart')
         }
         if (success) {
-            await dispatch(emptyAuthCart())
-            await dispatch(emptyCartDB())
-            await dispatch(emptyCart())
+            dispatch(emptyAuthCart())
+            dispatch(emptyCartDB())
+            dispatch(emptyCart())
             history.push('/order_placed')
         }
     }, [history, profile, success])
