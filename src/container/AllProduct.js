@@ -1,25 +1,23 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Card, Col, Row } from 'react-bootstrap'
-import SubHeader from "../container/SubHeader"
+import SubHeader from "./SubHeader"
 import "../assets/css/allproducts.css"
-import { getProductsAccorToCat } from '../action/productAction'
-import { getCategory, getCategoryDetails } from '../action/categoryAction'
+import { getAllProducts } from '../action/productAction'
+import { getCategory } from '../action/categoryAction'
 import Ratings from '../component/Ratings'
 import Loader from '../Extras/Loader'
 import Message from '../Extras/Message'
 
 
 
-const CategoryProducts = ({ match }) => {
+const AllProduct = () => {
 
     const dispatch = useDispatch()
-    const { loading, error, productATC } = useSelector(state => state.ProductAccorToCat)
+    const { loading, error, products } = useSelector(state => state.Products)
     const { category } = useSelector(state => state.Category)
-    const { categoryDetails } = useSelector(state => state.CategoryDetails)
     const [width, setWidth] = useState('18em')
-
 
     const updateCardWidth = () => {
         if (window.innerWidth <= 428) {
@@ -30,26 +28,21 @@ const CategoryProducts = ({ match }) => {
     }
 
     useEffect(() => {
-        const category_id = match.params.categoryId
-        dispatch(getProductsAccorToCat(category_id))
-        dispatch(getCategoryDetails(category_id))
+        dispatch(getAllProducts())
         dispatch(getCategory())
-
         window.addEventListener('resize', updateCardWidth)
         return () => {
             window.removeEventListener('resize', updateCardWidth)
         }
-
-    }, [dispatch, match])
+    }, [dispatch])
 
     return (
         <Fragment>
             <SubHeader />
-            <div className="allproductsbanner" >
-                <img src={categoryDetails && categoryDetails.category_image} alt={categoryDetails && categoryDetails.category_name} data-aos="zoom-in" />
+            <div className="allproductsbanner">
+                <img src="/photos/allproducts.jpg" alt="hero section" data-aos="zoom-in" />
                 <div className="allproductsbannerChild" data-aos="fade-up">
-                    <h2>{categoryDetails && categoryDetails.category_name}</h2>
-                    <p> {categoryDetails && categoryDetails.category_description}</p>
+                    <h2>All Products</h2>
                 </div>
             </div>
             {loading ? <Loader /> :
@@ -77,19 +70,18 @@ const CategoryProducts = ({ match }) => {
                         <Col md={10}>
                             <Row>
                                 {
-                                    productATC && productATC.slice(0).reverse().map((items) => {
+                                    products && products.slice(0).reverse().map((items) => {
 
                                         return (
                                             <Col xs={6} sm={6} md={6} lg={4} className='overflow category_block1' key={items._id} data-aos="zoom-in">
-                                                <Card variant='flush' className="border-0 text-center" style={{ margin: '5px', lineHeight: '1em', width: { width }, overflow: 'hidden' }}>
+                                                <Card variant='flush' className="border-0 text-center" style={{ lineHeight: '1em', width: { width }, overflow: 'hidden' }}>
                                                     <div className="imageTransition">
                                                         <Link to={`/product_details/${items._id}`}>
-                                                            <Card.Img variant="top" src={items.image} />
+                                                            <Card.Img variant="top" src={items.image} alt={items.name} />
                                                         </Link>
                                                     </div>
                                                     <Card.Body>
                                                         <Card.Text>{items.name}</Card.Text>
-                                                        <Card.Text>Pack of {items.product_details && items.product_details.items_in_pack}</Card.Text>
                                                         {
                                                             items.offerprice && items.offerprice < items.price ?
                                                                 <Card.Text>
@@ -126,4 +118,4 @@ const CategoryProducts = ({ match }) => {
     )
 }
 
-export default CategoryProducts
+export default AllProduct

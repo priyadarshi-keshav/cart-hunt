@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Card, Col, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getNewArrivalProducts } from '../action/productAction'
-import SubHeader from "../container/SubHeader"
+import SubHeader from "./SubHeader"
 import { getCategory } from '../action/categoryAction'
 import Ratings from '../component/Ratings'
 import Loader from '../Extras/Loader'
