@@ -34,7 +34,7 @@ const SubHeader = (props) => {
 
     return (
         <header style={{ backgroundColor: `${bgcolor}`, boxShadow: `${shadow}` }}>
-            <center style={{ backgroundColor: 'rgba(213 130 170)' }}>FREE PREPAID SHIPPING ABOVE ₹ 499</center>
+            <center style={{ backgroundColor: 'rgba(213 130 170)' }}>FREE PREPAID SHIPPING ABOVE ₹ 1499</center>
             <div className="container">
                 <nav className="navbar navbar-expand-lg navbar-light" >
 
@@ -46,8 +46,8 @@ const SubHeader = (props) => {
                         </button>
 
                         <Link to="/">
-                            {/* <p style={{ marginTop: '5px', fontSize: '2em', color: 'rgba(213 130 170)' }}>GraCiousMade</p> */}
-                            <img style={{ width: '50%' }} src="/photos/logo.png" alt="logo" />
+                            <p style={{ marginTop: '5px', fontSize: '2em', color: 'rgba(213 130 170)' }}>CartHunt</p>
+                            {/* <img style={{ width: '50%' }} src="/photos/logo.png" alt="logo" /> */}
                         </Link>
                         <div>
                             <Link  style={{ color: 'black' }} className="mobile cartIcon nav-link" to="/cart">

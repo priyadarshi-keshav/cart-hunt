@@ -31,19 +31,19 @@ const Contact = () => {
 
                     <Row>
                         <Col>
-                            <Link>
+                            <a>
                                 <i style={{ fontSize: '5em', color: '#3db997' }} className="fas fa-map-marker-alt"></i>
-                            </Link>
+                            </a>
                             <br />
                             <h5>Ranchi, Jharkhand, India</h5>
                         </Col>
 
                         <Col>
-                            <Link>
+                            <a style={{ color: 'black' }} href={`mailto:priyadarshikeshav64@gmail.com`}>
                                 <i style={{ fontSize: '5em', color: '#3db997' }} className="fas fa-envelope"></i>
-                            </Link>
+                            </a>
                             <br />
-                            <a style={{ color: 'black' }} href={`mailto:support@graciousmade.in`}> <h5>support@graciousmade.in</h5></a>
+                            <a style={{ color: 'black' }} href={`mailto:priyadarshikeshav64@gmail.com`}> <h5>priyadarshikeshav64@gmail.com</h5></a>
 
                         </Col>
 

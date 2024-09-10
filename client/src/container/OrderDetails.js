@@ -219,7 +219,7 @@ const OrderDetails = ({ history, match }) => {
                                                 </Card.Header>
                                                 <Card.Body>
                                                     {/* <p className='form-control' disabled>update soon</p> */}
-                                                    <a style={{ color: 'black' }} href={`mailto:support@graciousmade.in`}>support@graciousmade.in</a>
+                                                    <a style={{ color: 'black' }} href={`mailto:priyadarshikeshav64@gmail.com`}>priyadarshikeshav64@gmail.com</a>
                                                 </Card.Body>
                                             </>
                                         }

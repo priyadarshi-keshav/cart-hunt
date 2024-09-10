@@ -17,37 +17,39 @@ const ChooseCategory = () => {
 
     return (
         <Fragment>
-            <center style={{ padding: '20px' }}>
-                <p className='heading' data-aos="fade-up">Shop By Category</p>
-            </center>
+            <Col id="shop_by_category">
+                <center style={{ padding: '20px' }}>
+                    <p className='heading' data-aos="fade-up">Shop By Category</p>
+                </center>
 
-            {categoryLoading ? <Loader /> :
+                {categoryLoading ? <Loader /> :
 
-                <div className="catContainerMain">
-                    {
-                        category && category.map(items => {
-                            return (
-                                <div key={items._id} className='catContainer' data-aos="fade-up">
+                    <div className="catContainerMain">
+                        {
+                            category && category.map(items => {
+                                return (
+                                    <div key={items._id} className='catContainer' data-aos="fade-up">
 
-                                    <img className="catImg" variant="top" src={items.category_image} />
+                                        <img className="catImg" variant="top" src={items.category_image} />
 
-                                    <div className="catText">
-                                        <center>
-                                            <Link to={`/products/${items._id}`}>
-                                                <button className='page_btn'>Shop Now</button>
-                                            </Link>
-                                            <h4>{items.category_name}</h4>
-                                        </center>
+                                        <div className="catText">
+                                            <center>
+                                                <Link to={`/products/${items._id}`}>
+                                                    <button className='page_btn'>Shop Now</button>
+                                                </Link>
+                                                <h4>{items.category_name}</h4>
+                                            </center>
+                                        </div>
+
                                     </div>
+                                )
+                            })
+                        }
 
-                                </div>
-                            )
-                        })
-                    }
-
-                </div >
-            }
-            {/* </Col> */}
+                    </div >
+                }
+                {/* </Col> */}
+            </Col>
         </Fragment>
     )
 }

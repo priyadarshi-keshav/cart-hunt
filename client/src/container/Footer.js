@@ -14,8 +14,11 @@ const Footer = () => {
                 <Col>
                     <p>Follow Us</p>
                     <div className='socialIcons'>
-                        <a href="https://www.instagram.com/gracious_by_pooja/" target="blank" className="social">
-                            <i style={{ fontSize: '2em' }} className="fa fa-instagram"></i>
+                        <a href="https://www.linkedin.com/in/keshav-priyadarshi-877449125/" target="blank" className="social">
+                            <i style={{ fontSize: '2em' }} className="fa fa-linkedin"></i>
+                        </a>
+                        <a href={`mailto:priyadarshikeshav64@gmail.com`} className="social">
+                            <i style={{ fontSize: '2em' }} className="fa fa-envelope"></i>
                         </a>
                     </div>
                     <hr />
@@ -30,11 +33,12 @@ const Footer = () => {
                 </Row>
 
                 <Col className='companyLogo'>
-                    <img style={{ width: '15%' }} src="/photos/logo.png" alt="logo" />
+                    {/* <img style={{ width: '15%' }} src="/photos/logo.png" alt="logo" /> */}
+                    <p>CartHunt</p>
                 </Col>
 
                 <Col className='copyright'>
-                    <center><h6>Copyright &#169; 2021 GraciousMade</h6> </center>
+                    <center><h6>Copyright &#169; 2021 CartHunt</h6> </center>
 
                     <div style={{ float: 'right', fontSize: '2em' }}>
 

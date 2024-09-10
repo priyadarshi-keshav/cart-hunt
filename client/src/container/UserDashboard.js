@@ -26,13 +26,13 @@ const UserDashboard = ({ history }) => {
 
     const { loadingOrders, myOrders, orderError } = useSelector(state => state.MyOrders)
 
-    useEffect(async () => {
+    useEffect(() => {
         if (!profile) {
             history.push('/login')
         }
 
         else {
-            await dispatch(getMyOrders())
+            dispatch(getMyOrders())
             setOrders(myOrders)
             if (user && !user.firstname) {
                 dispatch(getUserDetails())

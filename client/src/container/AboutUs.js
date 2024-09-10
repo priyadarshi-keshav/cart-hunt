@@ -20,7 +20,7 @@ const AboutUs = () => {
             <br/>
             <br/>
             <Col className="justify-content-md-center text-center" data-aos="fade-up" style={{ padding: '20px' }} data-aos-delay="400" >
-                {/* <center><p className='heading'>About Gracious</p></center> */}
+                {/* <center><p className='heading'>About CartHunt</p></center> */}
                 <Row style={display}>
                     <Col md={9} data-aos="zoom-in" data-aos-delay="400">
                         <p className='heading'>How we started ?</p>
@@ -39,7 +39,7 @@ const AboutUs = () => {
                         <Image style={{ width: '100%' }} src='/photos/ourServices.png' alt="scrunchies" data-aos="zoom-out" data-aos-delay="400" />
                     </Col>
                     <Col md={9} data-aos="fade-up">
-                        <p className='heading'>About Gracious</p>
+                        <p className='heading'>About CartHunt</p>
                         <p>Each product is hand crafted by a single person and not just the product the selection of fabric, the cutting, the stitching rather every inch of the service being provided is handpicked. But with this a backlash follows, the thought in minds that whether the quality be good or not? The fact of each piece being prepared individually, the compromise stands nowhere that's the reason why we stand heads up high and confident with our products. Delivering the finest and the most elegant pieces at your doorstep we are climbing a small step towards happiness, each day and for this I am grateful to every customer and every seller in between, rather each individual in the way.
                             While the twists and turns don't let things get served on a platter, same was the case with gracious, we had our hardships and difficulties but the value of word is our utmost priority and the way we push ourselves to get the best out there.
                             Most importantly, I'm grateful to the web designer because the idea of launching the website gave me more confidence with my services.
@@ -51,7 +51,7 @@ const AboutUs = () => {
                 <Row>
                     <Col className="justify-content-md-center text-center" data-aos="zoom-in" style={{ background: 'beige' }}>
                         <p className="heading">Need help ? Mail Us.</p>
-                        <h4><a style={{ color: 'black' }} href={`mailto:support@graciousmade.in`}>support@graciousmade.in</a></h4>
+                        <h4><a style={{ color: 'black' }} href={`mailto:priyadarshikeshav64@gmail.com`}>priyadarshikeshav64@gmail.com</a></h4>
                     </Col>
                 </Row>
             </Col>
