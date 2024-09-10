@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const {login, register, userHealth, adminLogin, logout, resetPassword, generateEmailToken} = require("../controller/login.controller")
+const {login, register, userHealth, adminLogin, logout, resetPassword, generateEmailToken, forgotPassword} = require("../controller/login.controller")
 
 const {isValidEmailToken} = require('../middleware/isValidEmailToken')
 

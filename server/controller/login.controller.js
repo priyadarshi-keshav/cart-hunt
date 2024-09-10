@@ -19,22 +19,22 @@ module.exports = {
             const { firstname, lastname, email, password, confirmPassword, role } = req.body
 
             if (password === '' || confirmPassword === '' || firstname === '' || lastname === '') throw createError.BadRequest()
-            
+
             if (password.length < 6) {
                 throw createError(406, "Your password must be at least 6 characters");
             }
 
             const regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
             const validPassword = regularExpression.test(password)
-            
-            if(!validPassword){
-                throw createError(406, 'Password should contain(A-a 0-9 !@#$%^&*)' )
+
+            if (!validPassword) {
+                throw createError(406, 'Password should contain(A-a 0-9 !@#$%^&*)')
             }
 
             if (password !== confirmPassword) throw createError(406, 'password mismatched')
 
             const hashPassword = await bcrypt.hashSync(password, 12)
-            
+
             const userData = {
                 firstname,
                 lastname,
@@ -62,35 +62,40 @@ module.exports = {
         }
     },
 
-    //@POST ROUTE /user/generate_emailtoken
+    //@POST ROUTE /user/generate_emailtoken (forgot password generate token)
     generateEmailToken: async (req, res, next) => {
         try {
             const { email } = req.body
-            const user = await dbuser.findOne({email})
-            if(user){
+            const user = await dbuser.findOne({ email })
+            if (user) {
                 const emailToken = await passwordResetToken(user._id)
                 const msg = {
                     to: email,
                     from: 'keshavpriyadarshi93@gmail.com',
                     subject: 'Reset your password.',
 
-                    text: `Hello from gracious.
-                                    Please verify your email using the link http://localhost:3000/account_verify?generated%id=${emailToken}  to reset your password.`,
+                    text: `Hello from CartHunt.
+                        Please verify your email using the link ${process.env.CLIENT_HOST_URL}/account_verify?generated%id=${emailToken} to reset your password.`,
 
                     html: `<h1>Hello from gracious.</h1>
-                                    <p>Please verify your email to reset your password. </p>
-                                    <a href="http://localhost:3000/account_verify?generated%id=${emailToken}"><button>Verify Email</button></a>`
+                            <p>Please verify your email to reset your password. </p>
+                            <a href="${process.env.CLIENT_HOST_URL}/account_verify?generated%id=${emailToken}"><button>Verify Email</button></a>`
                 };
 
-                const result = await sgMail.send(msg)
-                if(result){
-                    return res.send('We have sent you an email to reset your password.')
-                }                   
-                else{
+                // const result = await sgMail.send(msg)
+                const result = true
+                if (result) {
+                    // return res.send('We have sent you an email to reset your password.')
+                    return res.send({
+                        message: `Reset using this link; we’ve stopped sending emails for testing purposes.`,
+                        reset_url: `${process.env.CLIENT_HOST_URL}/account_verify?generated%id=${emailToken}`
+                    })
+                }
+                else {
                     throw createError.InternalServerError()
-                }    
+                }
             }
-            else{
+            else {
                 throw createError(404, 'Email not found.')
             }
         } catch (error) {
@@ -109,7 +114,7 @@ module.exports = {
 
             const hashPassword = await bcrypt.hashSync(password, 12)
 
-            const user = await dbuser.findById({ _id:user_id })
+            const user = await dbuser.findById({ _id: user_id })
             if (user) {
                 user.password = hashPassword || user.password
                 await user.save()

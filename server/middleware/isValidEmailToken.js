@@ -6,18 +6,19 @@ module.exports = {
     isValidEmailToken: (req, res, next) => {
         try {
             const emailToken = req.headers["x-access-token"]
+            if (!emailToken) throw createError(400, "Token missing")
 
-            if (!emailToken) throw createError(400,"Token missing")
+            let verifiedToken;
+            try {
+                verifiedToken = jwt.verify(emailToken, process.env.SECRET_KEY)
+            } catch (error) {
+                throw createError.BadRequest("The password reset link you used is either expired or invalid.")
+            }
 
-            const verifiedToken = jwt.verify(emailToken, process.env.SECRET_KEY)
-            if(verifiedToken){
+            if (verifiedToken) {
                 next(verifiedToken.id)
             }
-            else{
-                throw createError.BadRequest()
-            }
-
-        }catch (error) {
+        } catch (error) {
             next(error)
         }
     }

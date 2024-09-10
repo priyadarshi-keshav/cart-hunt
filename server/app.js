@@ -13,7 +13,11 @@ connectDB()
 //apply middleware*****************
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(cors())
+app.use(cors({
+    origin: "*",
+    credentials: false,
+    methods: 'GET,POST,PUT,DELETE'
+}))
 
 
 //routes start*****************************

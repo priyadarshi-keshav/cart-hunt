@@ -70,8 +70,8 @@ module.exports = {
     newArrival: async (req, res, next) => {
         try {
             const product = await dbproduct.find({
-                createdAt: { 
-                    $gte: moment().add(-15, "days"),
+                updatedAt: { 
+                    $gte: moment().add(-1115, "days"),
                 }
             })
             if (!product) throw createError.NotFound()
