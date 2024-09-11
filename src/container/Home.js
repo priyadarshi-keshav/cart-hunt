@@ -20,7 +20,7 @@ const Home = () => {
             <Row>
                 <Col className="justify-content-md-center text-center" data-aos="zoom-in" style={{ background: 'beige' }}>
                     <p className="heading">Need help ? Mail Us.</p>
-                    <h4><a title="support@graciousmade.in" style={{ color: 'black' }} href={`mailto:priyadarshikeshav64@gmail.com`}>priyadarshikeshav64@gmail.com</a></h4>
+                    <h4><a title="support@carthunt.in" style={{ color: 'black' }} href={`mailto:priyadarshikeshav64@gmail.com`}>priyadarshikeshav64@gmail.com</a></h4>
                 </Col>
             </Row>
         </Fragment>

@@ -50,7 +50,7 @@ export const razorPayPayment = () => async (dispatch, getState) => {
                     key_id: process.env.REACT_RAZORPAY_KEY_ID,
                     amount: data.amount,
                     currency: "INR",
-                    name: "GraCiousMade",
+                    name: "Cart-Hunt",
                     description: "Complete your order.",
                     image: "https://forever21.imgix.net/img/app/product/4/466785-3276207.jpg?w=412&auto=format",
                     order_id: data.id,
